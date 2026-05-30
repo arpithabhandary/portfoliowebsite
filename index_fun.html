@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Arpitha Bhandary — AI Engineer & Creative Dev ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,400;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:#080807;--fg:#f0ece3;--muted:#6e6a63;--accent:#e8d5b0;
+  --gold:#c9a96e;--gold-dim:rgba(201,169,110,0.15);--border:rgba(255,255,255,0.07);
+  --border-hover:rgba(201,169,110,0.3);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--fg);font-family:'DM Mono',monospace;overflow-x:hidden;cursor:none;}
+
+/* ── CUSTOM CURSOR ── */
+#custom-cursor{
+  position:fixed;width:18px;height:18px;border-radius:50%;
+  background:var(--gold);pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:transform .08s ease,background .2s;
+  mix-blend-mode:difference;
+}
+#cursor-ring{
+  position:fixed;width:38px;height:38px;border-radius:50%;
+  border:1.5px solid rgba(201,169,110,0.5);pointer-events:none;z-index:99998;
+  transform:translate(-50%,-50%);
+  transition:transform .18s cubic-bezier(.4,0,.2,1),width .2s,height .2s,opacity .2s;
+}
+body:has(a:hover) #custom-cursor,
+body:has(button:hover) #custom-cursor { transform:translate(-50%,-50%) scale(2.2); }
+body:has(a:hover) #cursor-ring,
+body:has(button:hover) #cursor-ring { width:55px;height:55px;opacity:.4; }
+
+/* ── EMOJI CURSOR TRAIL ── */
+.cursor-emoji{
+  position:fixed;pointer-events:none;z-index:99997;
+  font-size:1rem;
+  animation:cursorFade .9s ease forwards;
+  transform-origin:center;
+  user-select:none;
+}
+@keyframes cursorFade{
+  0%{opacity:.9;transform:scale(1) translateY(0) rotate(0deg);}
+  100%{opacity:0;transform:scale(0.2) translateY(-35px) rotate(40deg);}
+}
+
+/* ── CONFETTI ── */
+.confetti-piece{
+  position:fixed;pointer-events:none;z-index:99990;
+  border-radius:3px;
+  animation:confettiFall linear forwards;
+}
+@keyframes confettiFall{
+  0%{opacity:1;transform:translateY(0) rotate(0deg) scale(1);}
+  100%{opacity:0;transform:translateY(180px) rotate(720deg) scale(0.5);}
+}
+
+/* ── BOUNCY / JELLO / WIGGLE ── */
+@keyframes jello{
+  0%,100%{transform:scale3d(1,1,1);}
+  30%{transform:scale3d(1.25,.75,1);}
+  40%{transform:scale3d(.75,1.25,1);}
+  50%{transform:scale3d(1.15,.85,1);}
+  65%{transform:scale3d(.95,1.05,1);}
+  75%{transform:scale3d(1.05,.95,1);}
+}
+@keyframes wiggle{
+  0%,100%{transform:rotate(0);}
+  20%{transform:rotate(-8deg);}
+  40%{transform:rotate(8deg);}
+  60%{transform:rotate(-4deg);}
+  80%{transform:rotate(4deg);}
+}
+@keyframes bounceIn{
+  0%{opacity:0;transform:scale(0) translateY(30px);}
+  60%{transform:scale(1.15) translateY(-5px);}
+  80%{transform:scale(0.95) translateY(2px);}
+  100%{opacity:1;transform:scale(1) translateY(0);}
+}
+@keyframes floatUp{
+  0%,100%{transform:translateY(0) rotate(0);}
+  50%{transform:translateY(-12px) rotate(8deg);}
+}
+@keyframes rainbow{
+  0%{color:#ff6b6b;}16%{color:#ffa500;}33%{color:#ffd700;}
+  50%{color:#4ade80;}66%{color:#60a5fa;}83%{color:#c084fc;}100%{color:#ff6b6b;}
+}
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  20%{transform:translateX(-6px);}
+  40%{transform:translateX(6px);}
+  60%{transform:translateX(-4px);}
+  80%{transform:translateX(4px);}
+}
+@keyframes popIn{
+  0%{transform:translate(-50%,-50%) scale(0) rotate(-10deg);}
+  60%{transform:translate(-50%,-50%) scale(1.12) rotate(2deg);}
+  100%{transform:translate(-50%,-50%) scale(1) rotate(0);}
+}
+@keyframes popOut{
+  0%{transform:translate(-50%,-50%) scale(1);}
+  100%{transform:translate(-50%,-50%) scale(0);opacity:0;}
+}
+
+/* ── FLOATING HERO EMOJIS ── */
+.hero-emoji{
+  position:absolute;font-size:1.6rem;
+  opacity:0.12;pointer-events:none;user-select:none;
+  animation:floatUp ease-in-out infinite;
+}
+
+/* ── FUN TOOLTIP ── */
+[data-joke]{position:relative;}
+[data-joke]::after{
+  content:attr(data-joke);
+  position:absolute;bottom:calc(100% + 10px);left:50%;
+  transform:translateX(-50%) translateY(4px) scale(0.85);
+  background:var(--gold);color:#080807;
+  padding:.35rem .85rem;font-size:.55rem;font-family:'DM Mono',monospace;
+  white-space:nowrap;opacity:0;pointer-events:none;
+  transition:all .25s cubic-bezier(.175,.885,.32,1.275);
+  border-radius:4px;font-style:normal;z-index:500;letter-spacing:.05em;
+  font-weight:400;
+}
+[data-joke]::before{
+  content:'';position:absolute;bottom:calc(100% + 5px);left:50%;
+  transform:translateX(-50%) scaleY(0);
+  border:5px solid transparent;border-top-color:var(--gold);
+  opacity:0;transition:all .2s;z-index:500;
+}
+[data-joke]:hover::after{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}
+[data-joke]:hover::before{opacity:1;transform:translateX(-50%) scaleY(1);}
+
+/* ── BG ── */
+#bg-gif{position:fixed;inset:0;background-image:url('bgm.gif');background-size:cover;background-position:center;opacity:.14;z-index:0;pointer-events:none;}
+#bg-vignette{position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 35%,rgba(8,8,7,.9) 100%);z-index:1;pointer-events:none;}
+#spotlight{position:fixed;inset:0;pointer-events:none;z-index:2;background:radial-gradient(600px circle at -999px -999px,rgba(201,169,110,.055),transparent 70%);transition:background .05s;}
+
+/* ── PARTICLES ── */
+#particles{position:fixed;inset:0;z-index:3;pointer-events:none;overflow:hidden;}
+.particle{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;opacity:0;animation:float linear infinite;}
+@keyframes float{0%{opacity:0;transform:translateY(0) scale(1);}10%{opacity:.4;}90%{opacity:.1;}100%{opacity:0;transform:translateY(-100vh) scale(0.3);}}
+
+.wrap{position:relative;z-index:4;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s,border-color .4s,backdrop-filter .4s;border-bottom:1px solid transparent;}
+nav.scrolled{background:rgba(8,8,7,.82);backdrop-filter:blur(20px);border-color:var(--border);}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--accent);text-decoration:none;letter-spacing:-.02em;cursor:none;transition:transform .2s;}
+.nav-logo:hover{animation:wiggle .5s;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;position:relative;cursor:none;}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .25s;}
+.nav-links a:hover{color:var(--fg);}
+.nav-links a:hover::after{width:100%;}
+/* Coffee counter in nav */
+.nav-coffee{font-size:.6rem;color:var(--muted);display:flex;align-items:center;gap:.4rem;cursor:none;transition:color .2s;}
+.nav-coffee:hover{color:var(--gold);}
+.nav-coffee span{font-family:'Syne',sans-serif;font-weight:700;}
+
+/* ── MOOD WIDGET ── */
+#mood-widget{
+  position:fixed;left:1.5rem;top:50%;
+  transform:translateY(-50%) rotate(180deg);
+  writing-mode:vertical-rl;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);z-index:90;cursor:default;
+  transition:color .3s;
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+}
+#mood-widget:hover{color:var(--gold);}
+#mood-text{transition:opacity .4s;}
+#mood-text.fade{opacity:0;}
+
+/* ── FUN BUTTON ── */
+#fun-btn{
+  position:fixed;bottom:160px;right:2rem;
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;cursor:none;z-index:190;
+  transition:all .3s;
+}
+#fun-btn:hover{border-color:var(--gold);transform:scale(1.15) rotate(15deg);background:rgba(201,169,110,.08);}
+
+/* ── SECRET MODAL ── */
+#secret-modal{
+  position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(0);
+  background:var(--bg);border:2px solid var(--gold);
+  padding:2.5rem 3.5rem;border-radius:8px;z-index:99990;
+  text-align:center;pointer-events:none;
+  box-shadow:0 0 60px rgba(201,169,110,.3);
+  max-width:90vw;
+}
+#secret-modal.show{
+  animation:popIn .5s cubic-bezier(.175,.885,.32,1.275) forwards;
+  pointer-events:auto;
+}
+#secret-modal.hide{animation:popOut .3s ease forwards;}
+.secret-emoji{font-size:3rem;display:block;margin-bottom:1rem;animation:wiggle 1s ease-in-out infinite;}
+.secret-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--gold);margin-bottom:.6rem;}
+.secret-msg{font-family:'Instrument Serif',serif;font-style:italic;color:var(--muted);font-size:.85rem;line-height:1.7;}
+#secret-close{
+  margin-top:1.5rem;padding:.7rem 2rem;background:var(--gold);
+  color:#080807;border:none;font-family:'Syne',sans-serif;font-weight:700;
+  font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:none;
+  transition:all .2s;
+}
+#secret-close:hover{transform:scale(1.05);}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden;}
+.hero-available{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem;display:flex;align-items:center;gap:.7rem;opacity:0;animation:fadeUp .8s .2s forwards;}
+.dot-live{width:7px;height:7px;background:#4ade80;border-radius:50%;box-shadow:0 0 10px #4ade80;animation:heartbeat 1.2s ease-in-out infinite,blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+@keyframes heartbeat{0%,100%{transform:scale(1);}25%{transform:scale(1.4);}50%{transform:scale(1);}75%{transform:scale(1.2);}}
+
+.hero-name{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(3.8rem,10vw,9rem);line-height:.9;letter-spacing:-.04em;opacity:0;animation:fadeUp 1s .4s forwards;}
+.hero-name em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--gold);}
+
+/* ── JOKE TICKER ── */
+.joke-ticker{
+  margin-top:1.6rem;font-family:'Instrument Serif',serif;font-style:italic;
+  font-size:1.05rem;color:var(--muted);
+  opacity:0;animation:fadeUp .9s .65s forwards;
+  min-height:1.4em;
+}
+.joke-ticker .joke-text{
+  display:inline-block;
+  animation:jokeAppear .5s ease forwards;
+}
+@keyframes jokeAppear{
+  0%{opacity:0;transform:translateY(8px);}
+  100%{opacity:1;transform:translateY(0);}
+}
+.joke-ticker .joke-text.out{
+  animation:jokeOut .4s ease forwards;
+}
+@keyframes jokeOut{
+  0%{opacity:1;transform:translateY(0);}
+  100%{opacity:0;transform:translateY(-8px);}
+}
+
+.hero-tagline{margin-top:.9rem;font-size:.78rem;color:rgba(240,236,227,.5);max-width:380px;line-height:1.9;opacity:0;animation:fadeUp .9s .85s forwards;}
+.hero-cta{margin-top:3rem;display:flex;align-items:center;gap:2rem;opacity:0;animation:fadeUp .9s 1.05s forwards;}
+
+/* Magnetic btn */
+.btn-primary{padding:.85rem 2.2rem;background:var(--gold);color:#080807;font-family:'Syne',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:none;cursor:none;display:inline-block;position:relative;overflow:hidden;transition:box-shadow .2s;}
+.btn-primary::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);transform:translateX(-100%) skewX(-15deg);transition:transform .4s;}
+.btn-primary:hover::before{transform:translateX(110%) skewX(-15deg);}
+.btn-primary:hover{box-shadow:0 14px 35px rgba(201,169,110,.35);}
+.btn-ghost{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:3px;transition:color .2s,border-color .2s;cursor:none;}
+.btn-ghost:hover{color:var(--fg);border-color:var(--muted);}
+
+.roles-float{position:absolute;right:3rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.7rem;align-items:flex-end;opacity:0;animation:fadeIn 1s 1.4s forwards;}
+.role-pill{font-size:.57rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);padding:.4rem 1rem;transition:color .2s,border-color .2s,transform .25s;cursor:none;}
+.role-pill:hover{color:var(--accent);border-color:var(--border-hover);transform:translateX(-5px);}
+
+.scroll-cue{position:absolute;bottom:5rem;right:3rem;writing-mode:vertical-rl;font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.8rem;opacity:0;animation:fadeIn 1s 2s forwards;}
+.scroll-cue::after{content:'';display:block;width:1px;height:55px;background:linear-gradient(to bottom,var(--muted),transparent);}
+
+/* ── MARQUEE ── */
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.9rem 0;background:rgba(255,255,255,.01);}
+.marquee-track{display:flex;gap:3rem;width:max-content;animation:marquee 26s linear infinite;}
+.marquee-wrap:hover .marquee-track{animation-play-state:paused;}
+.marquee-item{font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:1.5rem;transition:color .2s,transform .2s;cursor:none;}
+.marquee-item:hover{color:var(--gold);transform:translateY(-2px);}
+.marquee-item::after{content:'✦';color:var(--gold);font-size:.45rem;}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTIONS ── */
+.sw{padding:9rem 3rem;max-width:1380px;margin:0 auto;}
+.section-label{font-size:.57rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;display:flex;align-items:center;gap:1rem;}
+.section-label::before{content:'';width:28px;height:1px;background:var(--gold);display:block;}
+.section-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,5vw,4.2rem);line-height:1.02;letter-spacing:-.03em;}
+.section-title em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--gold);}
+.whisper{font-family:'Instrument Serif',serif;font-style:italic;font-size:.82rem;color:var(--muted);margin-top:.6rem;opacity:.75;transition:opacity .3s,color .3s;cursor:none;}
+.whisper:hover{opacity:1;color:var(--gold);}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:6rem;margin-top:4rem;align-items:start;}
+.about-body{font-size:.93rem;line-height:2.1;color:rgba(240,236,227,.65);}
+.about-body strong{color:var(--fg);}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2.5rem;}
+.stat-box{border:1px solid var(--border);padding:1.4rem;transition:border-color .25s,transform .25s,background .25s;cursor:none;position:relative;overflow:hidden;}
+.stat-box:hover{border-color:var(--border-hover);transform:translateY(-6px);background:rgba(201,169,110,.04);}
+.stat-box:hover .stat-num{display:inline-block;animation:jello .5s;}
+.stat-num{font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:var(--gold);letter-spacing:-.04em;}
+.stat-label{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.4rem;}
+
+/* ── TIMELINE ── */
+.timeline{margin-top:4.5rem;position:relative;}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--border);}
+.tl-item{padding-left:2.5rem;padding-bottom:3.5rem;position:relative;}
+.tl-item::before{content:'';position:absolute;left:-5px;top:5px;width:11px;height:11px;background:var(--gold);border-radius:50%;box-shadow:0 0 14px rgba(201,169,110,.5);transition:box-shadow .3s;}
+.tl-item:hover::before{box-shadow:0 0 22px rgba(201,169,110,.8);animation:heartbeat .8s ease-in-out infinite;}
+.tl-role{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--fg);margin-bottom:.25rem;}
+.tl-org{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem;}
+.tl-desc{font-size:.77rem;line-height:1.9;color:var(--muted);max-width:520px;}
+.tl-joke{margin-top:.7rem;font-family:'Instrument Serif',serif;font-style:italic;font-size:.78rem;color:rgba(201,169,110,.45);transition:color .3s;}
+.tl-item:hover .tl-joke{color:var(--gold);}
+
+/* ── CURRENTLY WORKING / LIVE TAG ── */
+.tl-working{display:inline-flex;align-items:center;gap:.45rem;margin-bottom:.8rem;padding:.32rem .9rem;border:1px solid rgba(74,222,128,.35);border-radius:2px;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:#4ade80;background:rgba(74,222,128,.06);box-shadow:0 0 14px rgba(74,222,128,.15),inset 0 0 8px rgba(74,222,128,.04);animation:greenPulse 2.5s ease-in-out infinite;}
+.tl-working-dot{width:6px;height:6px;background:#4ade80;border-radius:50%;flex-shrink:0;box-shadow:0 0 8px #4ade80,0 0 18px rgba(74,222,128,.55);animation:greenBlink 1.8s ease-in-out infinite;}
+.proj-live{display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1rem;padding:.28rem .8rem;border:1px solid rgba(74,222,128,.35);border-radius:2px;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:#4ade80;background:rgba(74,222,128,.06);box-shadow:0 0 14px rgba(74,222,128,.12),inset 0 0 6px rgba(74,222,128,.04);animation:greenPulse 2.5s ease-in-out infinite;}
+.proj-live-dot{width:5px;height:5px;background:#4ade80;border-radius:50%;flex-shrink:0;box-shadow:0 0 7px #4ade80,0 0 14px rgba(74,222,128,.5);animation:greenBlink 1.8s ease-in-out infinite;}
+@keyframes greenPulse{0%,100%{box-shadow:0 0 14px rgba(74,222,128,.15),inset 0 0 8px rgba(74,222,128,.04);}50%{box-shadow:0 0 26px rgba(74,222,128,.32),inset 0 0 14px rgba(74,222,128,.09);}}
+@keyframes greenBlink{0%,100%{opacity:1;box-shadow:0 0 8px #4ade80,0 0 18px rgba(74,222,128,.55);}50%{opacity:.45;box-shadow:0 0 4px #4ade80,0 0 8px rgba(74,222,128,.25);}}
+
+/* ── RESUME BUTTON ── */
+.resume-btn{display:inline-flex;align-items:center;gap:.6rem;margin-top:2.5rem;padding:.85rem 2rem;background:transparent;border:1px solid var(--border-hover);color:var(--gold);font-family:'Syne',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:background .25s,box-shadow .25s,transform .2s;}
+
+/* ── PROJECTS ── */
+.projects-grid{display:grid;grid-template-columns:1fr 1fr;margin-top:4.5rem;gap:1.5px;background:var(--border);}
+.proj-card{background:var(--bg);padding:2.8rem;position:relative;overflow:hidden;cursor:none;transition:background .3s;transform-style:preserve-3d;}
+.proj-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,169,110,.06),transparent 55%);opacity:0;transition:opacity .35s;}
+.proj-card:hover{background:rgba(255,255,255,.02);}
+.proj-card:hover::after{opacity:1;}
+.proj-num{font-size:.54rem;letter-spacing:.2em;color:var(--muted);margin-bottom:1.4rem;}
+.proj-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.2rem;letter-spacing:-.02em;color:var(--fg);margin-bottom:.75rem;transition:color .25s;}
+.proj-card:hover .proj-title{color:var(--gold);}
+.proj-desc{font-size:.75rem;line-height:1.95;color:var(--muted);margin-bottom:1.5rem;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:.45rem;}
+.tag{font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--border);padding:.28rem .65rem;color:var(--muted);transition:all .2s;}
+.proj-card:hover .tag{border-color:var(--border-hover);color:var(--accent);}
+.proj-arrow{position:absolute;top:2.5rem;right:2.5rem;font-size:1.1rem;color:var(--border);transition:all .3s;}
+.proj-card:hover .proj-arrow{color:var(--gold);transform:translate(4px,-4px);}
+.proj-joke-strip{background:var(--bg);padding:1.4rem 2.8rem;grid-column:1/-1;border-top:1px solid var(--border);}
+
+/* ── REACTION BAR ── */
+.reaction-bar{display:flex;gap:.4rem;margin-top:1.2rem;flex-wrap:wrap;}
+.rxn-btn{
+  background:rgba(255,255,255,.03);border:1px solid var(--border);
+  border-radius:20px;padding:.28rem .65rem;
+  font-size:.75rem;cursor:none;
+  transition:all .2s;display:flex;align-items:center;gap:.3rem;
+  color:var(--muted);
+}
+.rxn-btn:hover{background:rgba(201,169,110,.08);border-color:var(--border-hover);transform:scale(1.08) translateY(-1px);}
+.rxn-btn.active{background:rgba(201,169,110,.12);border-color:var(--border-hover);color:var(--gold);}
+.rxn-btn:hover .rxn-emoji{animation:wiggle .3s;}
+.rxn-emoji{display:inline-block;}
+.rxn-count{font-family:'DM Mono',monospace;font-size:.55rem;}
+
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));border:1px solid var(--border);margin-top:4.5rem;}
+.skill-cell{padding:1.8rem 1.5rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);transition:background .25s;cursor:none;position:relative;overflow:hidden;}
+.skill-cell::before{content:'';position:absolute;inset:0;background:var(--gold-dim);transform:scaleX(0);transform-origin:left;transition:transform .35s ease;}
+.skill-cell:hover::before{transform:scaleX(1);}
+.skill-cell:hover{background:transparent;}
+.skill-cat{font-size:.54rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem;position:relative;}
+.skill-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;color:var(--fg);position:relative;}
+.skill-name:hover{animation:jello .5s;}
+.skill-bar{margin-top:.8rem;height:2px;background:var(--border);overflow:hidden;position:relative;}
+.skill-fill{height:100%;background:var(--gold);width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+.skill-cell.visible .skill-fill{width:var(--w);}
+/* Quip that appears on hover */
+.skill-quip{
+  font-family:'Instrument Serif',serif;font-style:italic;
+  font-size:.52rem;color:rgba(201,169,110,0);
+  margin-top:.4rem;transition:color .3s;position:relative;line-height:1.4;
+}
+.skill-cell:hover .skill-quip{color:rgba(201,169,110,.6);}
+
+/* ── ACHIEVEMENTS ── */
+.ach-list{margin-top:4.5rem;}
+.ach-row{display:flex;align-items:flex-start;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border);transition:background .2s,padding-left .3s;cursor:none;}
+.ach-row:hover{background:rgba(201,169,110,.02);padding-left:.8rem;}
+.ach-emoji{font-size:1.6rem;min-width:2.5rem;padding-top:3px;transition:transform .3s;}
+.ach-row:hover .ach-emoji{animation:wiggle .6s;}
+.ach-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--fg);margin-bottom:.2rem;}
+.ach-sub{font-size:.7rem;color:var(--muted);line-height:1.7;}
+.ach-joke{display:block;margin-top:.3rem;font-family:'Instrument Serif',serif;font-style:italic;color:rgba(201,169,110,.5);transition:color .3s;}
+.ach-row:hover .ach-joke{color:var(--gold);}
+.ach-badge{margin-left:auto;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;padding:.38rem 1rem;border:1px solid rgba(201,169,110,.35);color:var(--gold);white-space:nowrap;align-self:center;transition:background .2s,color .2s;}
+.ach-row:hover .ach-badge{background:rgba(201,169,110,.1);}
+
+/* ── CONTACT ── */
+#contact{border-top:1px solid var(--border);}
+.contact-big{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.8rem,7vw,6.5rem);line-height:.95;letter-spacing:-.04em;margin-bottom:2.5rem;}
+.contact-big em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--gold);display:block;}
+.contact-sub{font-size:.8rem;color:var(--muted);max-width:440px;line-height:1.9;margin-bottom:2rem;}
+.contact-links{display:flex;gap:2rem;flex-wrap:wrap;}
+.contact-link{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:3px;transition:color .2s,border-color .2s;cursor:none;}
+.contact-link:hover{color:var(--gold);border-color:var(--gold);}
+.footer-bar{margin-top:6rem;padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:.6rem;letter-spacing:.08em;color:var(--muted);}
+/* Footer easter egg */
+.footer-egg{cursor:none;transition:color .3s;}
+.footer-egg:hover{color:var(--gold);}
+
+/* ── AUDIO NOTIFICATION ── */
+.audio-notification{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(8,8,7,.95);backdrop-filter:blur(20px);border:1px solid var(--border);padding:2.5rem 3.5rem;border-radius:8px;z-index:200;text-align:center;animation:slideIn .6s cubic-bezier(.4,0,.2,1);cursor:none;transition:all .3s;max-width:500px;width:90%;}
+.audio-notification:hover{border-color:var(--border-hover);background:rgba(8,8,7,.98);}
+.audio-notification-text{font-family:'Instrument Serif',serif;font-style:italic;font-size:1.3rem;color:var(--accent);margin-bottom:1rem;letter-spacing:-.02em;}
+.audio-notification-sub{font-size:.75rem;color:var(--muted);margin-top:.8rem;}
+.audio-notification.hidden{display:none;}
+@keyframes slideIn{from{opacity:0;transform:translate(-50%,-50%) scale(.92);}to{opacity:1;transform:translate(-50%,-50%) scale(1);}}
+
+/* ── AUDIO PLAYER ── */
+.audio-player{position:fixed;bottom:2rem;right:2rem;background:rgba(8,8,7,.95);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:50%;width:60px;height:60px;display:flex;align-items:center;justify-content:center;z-index:190;cursor:none;transition:all .3s;font-size:1.8rem;box-shadow:0 8px 32px rgba(0,0,0,.3);}
+.audio-player:hover{border-color:var(--gold);background:rgba(8,8,7,.98);box-shadow:0 8px 32px rgba(201,169,110,.2);}
+.audio-player.playing{animation:pulse .8s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 8px 32px rgba(201,169,110,.1);}50%{box-shadow:0 8px 32px rgba(201,169,110,.3);}}
+.audio-player.hidden{display:none;}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-left{opacity:0;transform:translateX(-28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-left.visible{opacity:1;transform:translateX(0);}
+.reveal-scale{opacity:0;transform:scale(.94);transition:opacity .65s ease,transform .65s ease;}
+.reveal-scale.visible{opacity:1;transform:scale(1);}
+.stagger > *{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease;}
+.stagger.visible > *:nth-child(1){opacity:1;transform:translateY(0);transition-delay:.05s;}
+.stagger.visible > *:nth-child(2){opacity:1;transform:translateY(0);transition-delay:.15s;}
+.stagger.visible > *:nth-child(3){opacity:1;transform:translateY(0);transition-delay:.25s;}
+.stagger.visible > *:nth-child(4){opacity:1;transform:translateY(0);transition-delay:.35s;}
+.clip-wipe{clip-path:inset(0 100% 0 0);transition:clip-path .8s cubic-bezier(.4,0,.2,1);}
+.clip-wipe.visible{clip-path:inset(0 0% 0 0);}
+
+/* grain */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.45;}
+
+/* ── TOAST ── */
+#toast{
+  position:fixed;bottom:5rem;left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:rgba(8,8,7,.95);border:1px solid var(--gold);
+  color:var(--accent);padding:.8rem 1.6rem;
+  font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
+  border-radius:4px;z-index:99995;opacity:0;
+  transition:all .3s cubic-bezier(.175,.885,.32,1.275);
+  backdrop-filter:blur(20px);pointer-events:none;
+  font-family:'DM Mono',monospace;text-align:center;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── KONAMI badge ── */
+#konami-overlay{
+  position:fixed;inset:0;background:rgba(8,8,7,.95);
+  z-index:99995;display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:1.5rem;cursor:none;
+  animation:fadeIn .4s;
+}
+#konami-overlay.show{display:flex;}
+.konami-title{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(2rem,6vw,4.5rem);letter-spacing:-.04em;
+  text-align:center;
+  animation:rainbow 1s linear infinite;
+}
+.konami-sub{
+  font-family:'Instrument Serif',serif;font-style:italic;
+  color:var(--muted);font-size:1rem;text-align:center;
+}
+.konami-close{
+  margin-top:1rem;padding:.8rem 2.5rem;
+  background:var(--gold);color:#080807;
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
+  border:none;cursor:none;transition:transform .2s;
+}
+.konami-close:hover{transform:scale(1.05);}
+.konami-emojis{font-size:2rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+
+/* ── Mobile ── */
+@media(max-width:768px){
+  nav{padding:1.2rem 1.5rem;}
+  .nav-links{display:none;}
+  .nav-coffee{display:none;}
+  #hero{padding:0 1.5rem 4rem;}
+  .sw{padding:5rem 1.5rem;}
+  .about-grid{grid-template-columns:1fr;gap:3rem;}
+  .projects-grid{grid-template-columns:1fr;}
+  .roles-float{display:none;}
+  .contact-big{font-size:2.4rem;}
+  .footer-bar{flex-direction:column;gap:1rem;text-align:center;}
+  #mood-widget{display:none;}
+  #fun-btn{bottom:100px;right:1rem;}
+}
+
+/* ══ AI CHATBOT ══ */
+#ai-toggle{position:fixed;bottom:30px;right:30px;width:60px;height:60px;border-radius:50%;background:rgba(201,169,110,.15);border:1px solid rgba(201,169,110,.3);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.2rem;cursor:none;z-index:9999;transition:.3s;}
+#ai-toggle:hover{transform:scale(1.08) rotate(10deg);box-shadow:0 0 30px rgba(201,169,110,.25);}
+#ai-chat{position:fixed;bottom:100px;right:30px;width:360px;height:500px;background:rgba(8,8,7,.88);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(30px);border-radius:24px;overflow:hidden;display:none;flex-direction:column;z-index:9999;}
+#ai-header{padding:1rem;border-bottom:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;color:var(--gold);font-family:'Syne',sans-serif;}
+#close-chat{background:none;border:none;color:white;font-size:1.2rem;cursor:none;}
+#ai-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:1rem;}
+.ai-message{padding:1rem;border-radius:18px;font-size:.75rem;line-height:1.8;max-width:85%;}
+.bot{background:rgba(255,255,255,.05);color:white;}
+.user{background:var(--gold);color:black;align-self:flex-end;}
+#ai-input-area{display:flex;gap:.5rem;padding:1rem;border-top:1px solid rgba(255,255,255,.06);}
+#ai-input{flex:1;background:rgba(255,255,255,.05);border:none;outline:none;padding:.9rem;border-radius:14px;color:white;cursor:none;}
+#send-btn{width:50px;border:none;border-radius:14px;background:var(--gold);color:black;cursor:none;}
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div id="custom-cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- AUDIO -->
+<audio id="bgAudio" preload="metadata">
+  <source src="Childish Gambino - Redbone.mp3" type="audio/mpeg">
+</audio>
+
+<!-- AUDIO NOTIFICATION -->
+<div class="audio-notification" id="audioNotification">
+  <div class="audio-notification-text">🎵 Click anywhere to play music</div>
+  <div class="audio-notification-sub">Featuring Childish Gambino vibes ✨</div>
+</div>
+
+<!-- (audio control moved to bot toggle) -->
+
+<!-- FUN MODE BUTTON -->
+<div id="fun-btn" title="Party mode!" data-joke="click me i dare you">🎉</div>
+
+<!-- MOOD WIDGET -->
+<div id="mood-widget">
+  <span style="color:var(--gold);font-size:.7rem;">·</span>
+  <span id="mood-text">caffeinated</span>
+  <span style="color:var(--gold);font-size:.7rem;">·</span>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- SECRET MODAL -->
+<div id="secret-modal">
+  <span class="secret-emoji">🌟</span>
+  <div class="secret-title" id="secret-title">You found a secret!</div>
+  <div class="secret-msg" id="secret-msg">Arpitha approves of your curiosity. 10/10 would hire.</div>
+  <button id="secret-close" onclick="closeSecret()">Nice ✓</button>
+</div>
+
+<!-- KONAMI OVERLAY -->
+<div id="konami-overlay">
+  <div class="konami-emojis"></div>
+  <div class="konami-title">LEGENDARY<br>DEVELOPER</div>
+  <div class="konami-sub">You found the Konami Code. You're officially a 10x engineer.<br>Arpitha would be proud 🥺</div>
+  <button class="konami-close" onclick="document.getElementById('konami-overlay').classList.remove('show')">I Accept This Title</button>
+</div>
+
+<div id="bg-gif"></div>
+<div id="bg-vignette"></div>
+<div id="spotlight"></div>
+<div id="particles"></div>
+
+<div class="wrap">
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo" id="nav-logo" data-joke="click me 5× for a surprise">AB</a>
+  <ul class="nav-links">
+    <li><a href="#about" data-joke="I'm not a robot, promise">About</a></li>
+    <li><a href="#experience" data-joke="aka my survival story">Experience</a></li>
+    <li><a href="#projects" data-joke="no todo apps in sight">Projects</a></li>
+    <li><a href="#skills" data-joke="yes really, I can do these">Skills</a></li>
+    <li><a href="#achievements" data-joke="*mic drop*">Wins</a></li>
+    <li><a href="#contact" data-joke="I respond fast, I promise">Contact</a></li>
+  </ul>
+  <div class="nav-coffee" id="nav-coffee" data-joke="each ☕ = 1 commit">☕ <span id="coffee-count">0</span> coffees</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- Floating emojis -->
+  <div class="hero-emoji" style="left:68%;top:20%;animation-duration:7s;animation-delay:0s;" data-joke="vroom vroom">🚀</div>
+  <div class="hero-emoji" style="left:75%;top:40%;animation-duration:5s;animation-delay:1s;" data-joke="a-ha!">💡</div>
+  <div class="hero-emoji" style="left:15%;top:30%;animation-duration:8s;animation-delay:2s;" data-joke="ooh shiny">✨</div>
+  <div class="hero-emoji" style="left:80%;top:65%;animation-duration:6s;animation-delay:.5s;" data-joke="beep boop">🤖</div>
+  <div class="hero-emoji" style="left:10%;top:60%;animation-duration:9s;animation-delay:3s;" data-joke="fuel source">☕</div>
+  <div class="hero-emoji" style="left:55%;top:15%;animation-duration:7s;animation-delay:1.5s;" data-joke="not a todo app">🎨</div>
+  <div class="hero-emoji" style="left:88%;top:25%;animation-duration:5s;animation-delay:4s;" data-joke="squash it">🐛</div>
+
+  <div class="hero-available"><span class="dot-live"></span>Available for Opportunities</div>
+  <h1 class="hero-name" id="heroName">Arpitha<br><em id="heroNameItalic">Bhandary</em></h1>
+
+  <div class="joke-ticker">
+    <span class="joke-text" id="joke-text">Part engineer, part designer, full-time overthinker.</span>
+  </div>
+
+  <p class="hero-tagline">AI Engineering Student building intelligent products, creative interfaces, and the communities that make them happen.</p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary magnetic" data-joke="yes these are real projects">View Work ↗</a>
+    <a href="#contact" class="btn-ghost" data-joke="response time: immediately">Let's talk</a>
+  </div>
+  <div class="roles-float">
+    <div class="role-pill" data-joke="& loving it">AI Engineering Student</div>
+    <div class="role-pill" data-joke="no jQuery was harmed">Web Developer</div>
+    <div class="role-pill" data-joke="yes I made that poster">Graphic Designer</div>
+    <div class="role-pill" data-joke="people person, actually">Community Lead</div>
+    <div class="role-pill" data-joke="bugs? what bugs?">QA Intern</div>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item" data-joke="useState supremacist">React</span>
+    <span class="marquee-item" data-joke="no apologies">Tailwind CSS</span>
+    <span class="marquee-item" data-joke="== vs === chaos">JavaScript</span>
+    <span class="marquee-item" data-joke="not just a buzzword">AI / ML</span>
+    <span class="marquee-item" data-joke="hands-free tech ✋">MediaPipe</span>
+    <span class="marquee-item" data-joke="pixels with purpose">UI/UX Design</span>
+    <span class="marquee-item" data-joke="professional breaker">QA Testing</span>
+    <span class="marquee-item" data-joke="herding devs since 2022">Community Building</span>
+    <span class="marquee-item" data-joke="Figma is life">Graphic Design</span>
+    <span class="marquee-item" data-joke="decentralized chaos">Web3 Workshops</span>
+    <span class="marquee-item" data-joke="vibes as a service">Branding</span>
+    <span class="marquee-item" data-joke="useState supremacist">React</span>
+    <span class="marquee-item" data-joke="no apologies">Tailwind CSS</span>
+    <span class="marquee-item" data-joke="== vs === chaos">JavaScript</span>
+    <span class="marquee-item" data-joke="not just a buzzword">AI / ML</span>
+    <span class="marquee-item" data-joke="hands-free tech ✋">MediaPipe</span>
+    <span class="marquee-item" data-joke="pixels with purpose">UI/UX Design</span>
+    <span class="marquee-item" data-joke="professional breaker">QA Testing</span>
+    <span class="marquee-item" data-joke="herding devs since 2022">Community Building</span>
+    <span class="marquee-item" data-joke="Figma is life">Graphic Design</span>
+    <span class="marquee-item" data-joke="decentralized chaos">Web3 Workshops</span>
+    <span class="marquee-item" data-joke="vibes as a service">Branding</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="sw" id="about">
+  <div class="section-label clip-wipe">About</div>
+  <div class="section-title reveal">I build things<br>that <em>think</em> &amp; feel</div>
+  <p class="whisper reveal" data-joke="still looking for the bug">Not all who wander are lost — some are just debugging.</p>
+  <div class="about-grid">
+    <div>
+      <p class="about-body reveal">Currently pursuing <strong>Artificial Intelligence</strong> at Adi Shankara Institute of Engineering and Technology, Kerala. I sit at the intersection of engineering, design, and community — building immersive digital products that are as thoughtful as they are functional.<br><br>I'm not just a developer. I'm a <strong>Campus Lead</strong>, a <strong>QA engineer</strong>, a <strong>designer</strong>, and someone who genuinely believes the best tech starts with the right community around it.</p>
+    </div>
+    <div>
+      <div class="about-stats stagger">
+        <div class="stat-box" data-joke="each one a sleep debt" onclick="confettiAt(event)"><div class="stat-num" data-target="4" data-suffix="+">0</div><div class="stat-label">Projects Shipped</div></div>
+        <div class="stat-box" data-joke="48hr trauma included" onclick="confettiAt(event)"><div class="stat-num" data-target="3" data-suffix="+">0</div><div class="stat-label">Hackathons</div></div>
+        <div class="stat-box" data-joke="leading the chaos" onclick="confettiAt(event)"><div class="stat-num" data-target="2" data-suffix="">0</div><div class="stat-label">Community Leads</div></div>
+        <div class="stat-box" id="infinity-box" data-joke="seriously, ∞" onclick="showSecret('🧠','404: Brain.exe limit not found','Arpitha\'s curiosity has no upper bound. Science cannot explain it.')"><div class="stat-num">∞</div><div class="stat-label">Curiosity</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="sw" id="experience">
+  <div class="section-label clip-wipe">Experience &amp; Leadership</div>
+  <div class="section-title reveal">Where I've<br><em>shown up</em></div>
+  <div class="timeline">
+    <div class="tl-item reveal-left">
+      <div class="tl-role" data-joke="the OG community">Campus Lead</div>
+      <div class="tl-org">TinkerHub ASIET</div>
+      <div class="tl-desc">Led a campus-level tech community, organized hackathons, workshops, and innovation events. Built the culture of learning and building from scratch at ASIET.</div>
+      <div class="tl-joke">Staying loyal to TinkerHub as always and Forever hehe </div>
+    </div>
+    <div class="tl-item reveal-left">
+      <div class="tl-role" data-joke="professional people-person">Networking Lead</div>
+      <div class="tl-org">Hack Club ASIET</div>
+      <div class="tl-desc">Managed partnerships for the campus hacker club. Hosted Web3 workshops and connected students to the broader developer ecosystem.</div>
+      <div class="tl-joke">Cause I like peeps — professionally speaking. </div>
+    </div>
+    <div class="tl-item reveal-left">
+      <div class="tl-working"><span class="tl-working-dot"></span>Currently Working</div>
+      <div class="tl-role" data-joke="i find your bugs before you do">QA Intern</div>
+      <div class="tl-org">Talrop</div>
+      <div class="tl-desc">Performed quality assurance testing on production software. Wrote test cases, reported bugs, and worked closely with dev teams to ship cleaner code.</div>
+      <div class="tl-joke">QA taught me that breaking things is also a skill. </div>
+    </div>
+    <div class="tl-item reveal-left">
+      <div class="tl-role" data-joke="yes i made that poster">Media Team Member</div>
+      <div class="tl-org">TinkerHub</div>
+      <div class="tl-desc">Handled branding, creative content, and visual media for TinkerHub. Made community events more visible and impactful through design.</div>
+      <div class="tl-joke"> Just 3 AM motivation things nvm ....</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="sw" id="projects">
+  <div class="section-label clip-wipe">Projects</div>
+  <div class="section-title reveal">Things I've<br><em>actually built</em></div>
+  <div class="projects-grid">
+
+    <div class="proj-card tilt reveal-scale" onclick="window.open('https://github.com/arpithabhandary/TasteTrail', '_blank')" style="cursor:none;">
+      <div class="proj-num">01</div>
+      <div class="proj-live"><span class="proj-live-dot"></span>Currently Growing</div>
+      <div class="proj-title">TasteTrail</div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-desc">An AI-powered personalized food recommendation platform. Adapts suggestions based on regional taste preferences while traveling — because food is the best way to know a place.</div>
+      <div class="proj-tags"><span class="tag">AI</span><span class="tag">React</span><span class="tag">Recommendations</span><span class="tag">Travel Tech</span></div>
+      
+    </div>
+
+    <div class="proj-card tilt reveal-scale" onclick="window.open('https://github.com/arpithabhandary/Hand-gesture-control-', '_blank')" style="cursor:none;">
+      <div class="proj-num">02</div>
+      <div class="proj-title">Hand Gesture Controller</div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-desc">MediaPipe-powered gesture recognition that lets you control presentation slides with your hands. No clicker needed — just vibes and computer vision.</div>
+      <div class="proj-tags"><span class="tag">MediaPipe</span><span class="tag">Python</span><span class="tag">CV</span><span class="tag">HCI</span></div>
+      
+    </div>
+
+    <div class="proj-card tilt reveal-scale" onclick="window.open('https://github.com/arpithabhandary/Movie-recomendation-system', '_blank')" style="cursor:none;">
+      <div class="proj-num">03</div>
+      <div class="proj-title">Movie Recommendation System</div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-desc">Searches movies not by title but by scene descriptions and phrase-based discovery. "That film where it rains and nobody talks" — yeah, it finds that.</div>
+      <div class="proj-tags"><span class="tag">NLP</span><span class="tag">ML</span><span class="tag">Semantic Search</span></div>
+      
+    </div>
+
+    <div class="proj-card tilt reveal-scale" onclick="window.open('https://github.com/arpithabhandary/Rescue_Me', '_blank')" style="cursor:none;">
+      <div class="proj-num">04</div>
+      <div class="proj-title">Rescue Me (RescueMap)</div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-desc">A high-tech disaster response and coordination platform designed for real-time SOS management. Connecting responders and communities in crisis situations with precision and speed.</div>
+      <div class="proj-tags"><span class="tag">Disaster Tech</span><span class="tag">Real-time</span><span class="tag">SOS</span><span class="tag">Community</span></div>
+      
+    </div>
+
+    <div class="proj-card tilt reveal-scale" onclick="window.open('https://github.com/arpithabhandary/diabetic_retinopathy', '_blank')" style="cursor:none;">
+      <div class="proj-num">05</div>
+      <div class="proj-title">Diabetic Retinopathy</div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-desc">A computer-vision project for detecting diabetic retinopathy from retinal images — applied ML for medical imaging and diagnostics.</div>
+      <div class="proj-tags"><span class="tag">ML</span><span class="tag">Computer Vision</span><span class="tag">Healthcare</span></div>
+      
+    </div>
+
+    <div class="proj-card tilt reveal-scale" onclick="window.open('https://github.com/arpithabhandary', '_blank')" style="cursor:none;">
+      <div class="proj-num">∞</div>
+      <div class="proj-title">The ones I built at 2am</div>
+      <div class="proj-arrow">↗</div>
+      <div class="proj-desc">There's a whole graveyard of side projects, experiments, and "this will only take an hour" ideas on my GitHub. Some are polished. Some are not. All of them taught me something.</div>
+      <div class="proj-tags"><span class="tag">GitHub</span><span class="tag">Chaos</span><span class="tag">Sleep Deprived</span><span class="tag">Still Worth It</span></div>
+      
+    </div>
+
+    <div class="proj-joke-strip reveal"><p class="whisper" style="margin:0;" data-joke="you checked, didn't you">None of these are todo apps. You're welcome. 🎉</p></div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="sw" id="skills">
+  <div class="section-label clip-wipe">Skills</div>
+  <div class="section-title reveal">The tools in<br>my <em>arsenal</em></div>
+  <p class="whisper reveal" data-joke="no regrets">Yes I know Tailwind. No I will not apologize for it.</p>
+  <div class="skills-grid">
+    <div class="skill-cell" style="--w:85%"><div class="skill-cat">Frontend</div><div class="skill-name">React</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-quip">useState? more like useObsess</div></div>
+    <div class="skill-cell" style="--w:88%"><div class="skill-cat">CSS Framework</div><div class="skill-name">Tailwind CSS</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-quip">className="absolute top-0 left-0 bg-gold"</div></div>
+    <div class="skill-cell" style="--w:82%"><div class="skill-cat">Language</div><div class="skill-name">Python</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-quip">IndentationError is a lifestyle</div></div>
+    <div class="skill-cell" style="--w:75%"><div class="skill-cat">AI/ML</div><div class="skill-name">MediaPipe</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-quip">my hands are now a remote control</div></div>
+    <div class="skill-cell" style="--w:78%"><div class="skill-cat">Design Tool</div><div class="skill-name">Figma</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-quip">auto-layout my beloved 🥺</div></div>
+    <div class="skill-cell" style="--w:80%"><div class="skill-cat">Language</div><div class="skill-name">JavaScript</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-quip">undefined is not a function... yet</div></div>
+    <div class="skill-cell" style="--w:76%"><div class="skill-cat">Design</div><div class="skill-name">UI/UX Design</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-quip">users are not your rubber duck</div></div>
+    <div class="skill-cell" style="--w:79%"><div class="skill-cat">Creative</div><div class="skill-name">Graphic Design</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-quip">helvetica? never heard of her</div></div>
+    <div class="skill-cell" style="--w:72%"><div class="skill-cat">Intelligence</div><div class="skill-name">AI / ML Basics</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-quip">training data well-curated ✓</div></div>
+    <div class="skill-cell" style="--w:82%"><div class="skill-cat">Quality</div><div class="skill-name">QA Testing</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-quip">I break things for a living. it's fine.</div></div>
+    <div class="skill-cell" style="--w:84%"><div class="skill-cat">Creative</div><div class="skill-name">Media &amp; Branding</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-quip">vibes as a service, delivered</div></div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENTS -->
+<div class="sw" id="achievements">
+  <div class="section-label clip-wipe">Achievements</div>
+  <div class="section-title reveal">Where it<br><em>got real</em></div>
+  <div class="ach-list">
+    <div class="ach-row reveal" onclick="confettiAt(event)">
+      <div class="ach-emoji">🏆</div>
+      <div><div class="ach-title">Winner — TinkerHer 3.0</div><div class="ach-sub">Women in tech hackathon, competed and won among Kerala's best student builders.<span class="ach-joke"> Won TinkerHer 3.0. Still not over it. Never will be. 🥇</span></div></div>
+      <div class="ach-badge" data-joke="click to celebrate!">Winner</div>
+    </div>
+    <div class="ach-row reveal" onclick="confettiAt(event)">
+      <div class="ach-emoji">⚙️</div>
+      <div><div class="ach-title">Makethon by CUSAT</div><div class="ach-sub">Competed in Cochin University's flagship innovation hackathon. My laptop has 48-hour trauma.<span class="ach-joke"> The laptop recovered. Eventually. 💻</span></div></div>
+      <div class="ach-badge" data-joke="survived!">Participant</div>
+    </div>
+    <div class="ach-row reveal" onclick="confettiAt(event)">
+      <div class="ach-emoji">🌐</div>
+      <div><div class="ach-title">Web3 Workshop Host</div><div class="ach-sub">Organised and hosted Web3 sessions as Networking Lead, Hack Club ASIET.<span class="ach-joke"> Explained blockchain to 40+ people. Still have a voice. 🎙️</span></div></div>
+      <div class="ach-badge" data-joke="blockchain babe">Organiser</div>
+    </div>
+    <div class="ach-row reveal" onclick="confettiAt(event)">
+      <div class="ach-emoji">🎯</div>
+      <div><div class="ach-title">Multiple Hackathons</div><div class="ach-sub">Consistent participant in regional and national innovation events. Competed. Built. Presented at 3am. Would do it again.<span class="ach-joke"> Yes, at 3am. Yes, on Red Bull. Yes, worth it. 🌙</span></div></div>
+      <div class="ach-badge" data-joke="chronically sleepless">Active</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact">
+  <div class="sw">
+    <div class="section-label clip-wipe">Contact</div>
+    <div class="contact-big reveal">Let's build<br><em>something wild</em></div>
+    <p class="contact-sub reveal">I'm looking for internships, collaborations, and projects where engineering, design, and community come together. No cover letter needed — this whole site is one.</p>
+    <p class="whisper reveal" style="margin-bottom:2rem;" data-joke="faster than npm install">Response time: faster than my code compiles.</p>
+    <div class="contact-links reveal">
+      <a href="mailto:mearpithabhandary@gmail.com" class="contact-link" data-joke="goes directly to arpitha">✉ Email</a>
+      <a href="https://github.com/arpithabhandary" target="_blank" class="contact-link" data-joke="beware: commits at 3am">⌥ GitHub</a>
+      <a href="https://www.linkedin.com/in/arpitha-bhandary-ab2aa1290/" target="_blank" class="contact-link" data-joke="open to connect!">⌘ LinkedIn</a>
+    </div>
+    <a href="https://drive.google.com/drive/folders/1zjy72Nxxb8z6sIVP4gBJdor5PYnl717G?usp=drive_link" target="_blank" class="resume-btn reveal" data-joke="actual human, not a template">
+      📄 Download Resume ↗
+    </a>
+    <div class="footer-bar">
+      <span class="footer-egg" onclick="showSecret('✨','Psst... you clicked the footer!','That\'s the sign you\'re the kind of person Arpitha wants to work with. Hire her. Do it. 🌟')" data-joke="© with love">© 2025 Arpitha Bhandary. Built from scratch, not a template.</span>
+      <span data-joke="god's own country 🌿">Adi Shankara Institute · Kerala, India</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<div id="ai-toggle" title="Toggle Music">▶</div>
+
+<script>
+/* ══════════════════════════════════
+   CUSTOM CURSOR
+══════════════════════════════════ */
+const cursor = document.getElementById('custom-cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx+'px';cursor.style.top=my+'px';
+  document.getElementById('spotlight').style.background=
+    `radial-gradient(600px circle at ${mx}px ${my}px,rgba(201,169,110,.055),transparent 70%)`;
+});
+setInterval(()=>{
+  rx+=(mx-rx)*.14;ry+=(my-ry)*.14;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+},16);
+
+/* ══════════════════════════════════
+   EMOJI CURSOR TRAIL
+══════════════════════════════════ */
+const trailEmojis=['✨','⭐','💫','🌟','✦','·'];
+let lastTrail=0;
+document.addEventListener('mousemove',e=>{
+  const now=Date.now();
+  if(now-lastTrail<120)return;
+  lastTrail=now;
+  const el=document.createElement('div');
+  el.className='cursor-emoji';
+  el.textContent=trailEmojis[Math.floor(Math.random()*trailEmojis.length)];
+  el.style.left=e.clientX+'px';
+  el.style.top=e.clientY+'px';
+  el.style.fontSize=(.5+Math.random()*.5)+'rem';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),900);
+});
+
+/* ══════════════════════════════════
+   CONFETTI
+══════════════════════════════════ */
+const confettiColors=['#c9a96e','#f0ece3','#4ade80','#60a5fa','#f472b6','#fbbf24','#a78bfa'];
+function confettiAt(e){
+  e.stopPropagation();
+  const x=e.clientX,y=e.clientY;
+  for(let i=0;i<22;i++){
+    const c=document.createElement('div');
+    c.className='confetti-piece';
+    c.style.left=x+'px';c.style.top=y+'px';
+    c.style.width=(5+Math.random()*8)+'px';
+    c.style.height=(5+Math.random()*8)+'px';
+    c.style.background=confettiColors[Math.floor(Math.random()*confettiColors.length)];
+    c.style.borderRadius=Math.random()>.5?'50%':'3px';
+    const angle=Math.random()*Math.PI*2;
+    const dist=60+Math.random()*100;
+    c.style.animationDuration=(.6+Math.random()*.8)+'s';
+    c.style.transform=`translate(${Math.cos(angle)*dist}px,${Math.sin(angle)*dist-60}px)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),1500);
+  }
+}
+
+/* ══════════════════════════════════
+   PARTICLES
+══════════════════════════════════ */
+const pc=document.getElementById('particles');
+for(let i=0;i<28;i++){
+  const p=document.createElement('div');
+  p.className='particle';
+  p.style.left=Math.random()*100+'%';
+  p.style.animationDuration=(6+Math.random()*14)+'s';
+  p.style.animationDelay=(Math.random()*10)+'s';
+  p.style.width=p.style.height=(1+Math.random()*2.5)+'px';
+  document.body.appendChild(p);
+}
+
+/* ══════════════════════════════════
+   NAV SCROLL
+══════════════════════════════════ */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50));
+
+/* ══════════════════════════════════
+   TEXT SCRAMBLE
+══════════════════════════════════ */
+const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+function scramble(el,finalText,duration=900){
+  let frame=0;const totalFrames=Math.floor(duration/30);
+  const iv=setInterval(()=>{
+    let out='';
+    for(let i=0;i<finalText.length;i++){
+      if(finalText[i]===' '){out+=' ';continue;}
+      if(frame/totalFrames > i/finalText.length){out+=finalText[i];}
+      else{out+=chars[Math.floor(Math.random()*chars.length)];}
+    }
+    el.textContent=out;
+    if(++frame>=totalFrames){el.textContent=finalText;clearInterval(iv);}
+  },30);
+}
+setTimeout(()=>{
+  const n=document.getElementById('heroName');
+  const firstText=n.childNodes[0];
+  scramble(firstText,'Arpitha',1100);
+  setTimeout(()=>scramble(document.getElementById('heroNameItalic'),'Bhandary',900),400);
+},600);
+
+/* ══════════════════════════════════
+   CYCLING JOKES
+══════════════════════════════════ */
+const jokes=[
+  "Part engineer, part designer, full-time overthinker.",
+  "I don't have bugs. I have undocumented features.",
+  "git push --force (just kidding, I use branches 🌿)",
+  "CSS is fine. Everything is fine. 🔥",
+  "404: Social life not found. GitHub streak still alive.",
+  "Debugging by day, designing by night, caffeinated always.",
+  "if (sleeping) { throw new Error('deadline!') }",
+  "My code works on my machine™.",
+  "Turning ☕ into commits since 2022.",
+  "No, I will not write it in a different font.",
+];
+let jokeIdx=0;
+const jokeTextEl=document.getElementById('joke-text');
+function nextJoke(){
+  jokeTextEl.classList.add('out');
+  setTimeout(()=>{
+    jokeIdx=(jokeIdx+1)%jokes.length;
+    jokeTextEl.textContent=jokes[jokeIdx];
+    jokeTextEl.classList.remove('out');
+  },400);
+}
+setInterval(nextJoke,3500);
+jokeTextEl.style.cursor='none';
+jokeTextEl.addEventListener('click',()=>{nextJoke();confettiAt(event);});
+
+/* ══════════════════════════════════
+   MOOD CYCLING
+══════════════════════════════════ */
+const moods=['caffeinated','in the zone','debugging life','design mode on','building stuff','running on vibes','sleep deprived','✨ thriving ✨','git committing','making things'];
+let moodIdx=0;const moodEl=document.getElementById('mood-text');
+function nextMood(){
+  moodEl.classList.add('fade');
+  setTimeout(()=>{
+    moodIdx=(moodIdx+1)%moods.length;
+    moodEl.textContent=moods[moodIdx];
+    moodEl.classList.remove('fade');
+  },400);
+}
+setInterval(nextMood,4000);
+
+/* ══════════════════════════════════
+   COFFEE COUNTER
+══════════════════════════════════ */
+let coffeeCount=0;
+const coffeeEl=document.getElementById('coffee-count');
+document.getElementById('nav-coffee').addEventListener('click',e=>{
+  coffeeCount++;
+  coffeeEl.textContent=coffeeCount;
+  coffeeEl.style.animation='none';
+  setTimeout(()=>coffeeEl.style.animation='',10);
+  confettiAt(e);
+  if(coffeeCount===5) showToast("☕ 5 coffees! Arpitha is now invincible.");
+  if(coffeeCount===10) showSecret('☕','10 coffees?? You absolute legend.','Please drink water. Also, yes, this is how Arpitha codes. Same energy.');
+});
+
+/* ══════════════════════════════════
+   LOGO CLICK EASTER EGG
+══════════════════════════════════ */
+let logoClicks=0,logoTimer;
+document.getElementById('nav-logo').addEventListener('click',e=>{
+  e.preventDefault();
+  logoClicks++;
+  clearTimeout(logoTimer);
+  if(logoClicks>=5){
+    logoClicks=0;
+    showSecret('🎊','YOU FOUND THE SECRET!','Arpitha is somewhere out there, impressed by your persistence. That\'s exactly the kind of energy she brings to her work. ✨');
+    confettiAt(e);
+  } else {
+    showToast(`${logoClicks}/5 — keep clicking! 👀`);
+    logoTimer=setTimeout(()=>logoClicks=0,2000);
+  }
+});
+
+/* ══════════════════════════════════
+   SECRET MODAL
+══════════════════════════════════ */
+function showSecret(emoji,title,msg){
+  const modal=document.getElementById('secret-modal');
+  document.querySelector('.secret-emoji').textContent=emoji;
+  document.getElementById('secret-title').textContent=title;
+  document.getElementById('secret-msg').textContent=msg;
+  modal.classList.remove('hide');
+  modal.classList.add('show');
+  modal.style.transform='';
+}
+function closeSecret(){
+  const modal=document.getElementById('secret-modal');
+  modal.classList.add('hide');
+  modal.classList.remove('show');
+}
+document.getElementById('secret-modal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('secret-modal')) closeSecret();
+});
+
+/* ══════════════════════════════════
+   TOAST
+══════════════════════════════════ */
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+/* ══════════════════════════════════
+   KONAMI CODE
+══════════════════════════════════ */
+const konamiCode=[38,38,40,40,37,39,37,39,66,65];
+let konamiIdx=0;
+document.addEventListener('keydown',e=>{
+  if(e.keyCode===konamiCode[konamiIdx]){
+    konamiIdx++;
+    if(konamiIdx===konamiCode.length){
+      konamiIdx=0;
+      document.getElementById('konami-overlay').classList.add('show');
+      for(let i=0;i<5;i++){
+        setTimeout(()=>{
+          const fakeEv={clientX:Math.random()*window.innerWidth,clientY:Math.random()*window.innerHeight,stopPropagation:()=>{}};
+          confettiAt(fakeEv);
+        },i*200);
+      }
+    }
+  } else { konamiIdx=0; }
+});
+
+/* ══════════════════════════════════
+   FUN MODE BUTTON
+══════════════════════════════════ */
+let funMode=false;
+document.getElementById('fun-btn').addEventListener('click',e=>{
+  funMode=!funMode;
+  document.getElementById('fun-btn').textContent=funMode?'😵':'🎉';
+  if(funMode){
+    document.body.style.transition='filter .1s';
+    let hue=0;
+    window._funInterval=setInterval(()=>{
+      hue=(hue+2)%360;
+      document.body.style.filter=`hue-rotate(${hue}deg)`;
+    },30);
+    showToast('🎉 PARTY MODE ACTIVATED! ↑↑↓↓←→←→BA for secret');
+    confettiAt(e);
+  } else {
+    clearInterval(window._funInterval);
+    document.body.style.filter='';
+    showToast('Party over. Back to building. 🔨');
+  }
+});
+
+// Reaction buttons removed from project cards; handler deprecated.
+
+/* ══════════════════════════════════
+   INTERSECTION OBSERVER
+══════════════════════════════════ */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      e.target.querySelectorAll&&e.target.querySelectorAll('[data-target]').forEach(cEl=>{
+        const target=cEl.dataset.target;
+        const suffix=cEl.dataset.suffix||'';
+        if(isNaN(target))return;
+        let start=0;const end=parseInt(target);
+        const dur=1200;const step=dur/end;
+        const iv=setInterval(()=>{start++;cEl.textContent=start+suffix;if(start>=end)clearInterval(iv);},step);
+      });
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-scale,.clip-wipe,.stagger,.skill-cell,.ach-row').forEach(el=>io.observe(el));
+
+/* ══════════════════════════════════
+   TILT on project cards
+══════════════════════════════════ */
+document.querySelectorAll('.tilt').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=((e.clientX-r.left)/r.width-.5)*10;
+    const y=((e.clientY-r.top)/r.height-.5)*-10;
+    card.style.transform=`perspective(800px) rotateY(${x}deg) rotateX(${y}deg) scale(1.02)`;
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='perspective(800px) rotateY(0) rotateX(0) scale(1)';
+    card.style.transition='transform .5s ease';
+  });
+  card.addEventListener('mouseenter',()=>{card.style.transition='transform .1s ease';});
+});
+
+/* ══════════════════════════════════
+   MAGNETIC BUTTONS
+══════════════════════════════════ */
+document.querySelectorAll('.magnetic').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect();
+    const x=(e.clientX-r.left-r.width/2)*.35;
+    const y=(e.clientY-r.top-r.height/2)*.35;
+    btn.style.transform=`translate(${x}px,${y}px)`;
+  });
+  btn.addEventListener('mouseleave',()=>{
+    btn.style.transform='translate(0,0)';
+    btn.style.transition='transform .4s cubic-bezier(.4,0,.2,1)';
+  });
+  btn.addEventListener('mouseenter',()=>{btn.style.transition='transform .1s ease';});
+});
+
+/* ══════════════════════════════════
+   PARALLAX BG
+══════════════════════════════════ */
+window.addEventListener('scroll',()=>{
+  document.getElementById('bg-gif').style.transform=`translateY(${scrollY*.08}px)`;
+});
+
+/* ══════════════════════════════════
+   RESUME BUTTON HOVER
+══════════════════════════════════ */
+const resumeBtn=document.querySelector('.resume-btn');
+if(resumeBtn){
+  resumeBtn.addEventListener('mouseenter',()=>{
+    resumeBtn.style.background='rgba(201,169,110,.08)';
+    resumeBtn.style.boxShadow='0 0 28px rgba(201,169,110,.2)';
+    resumeBtn.style.transform='translateY(-2px)';
+  });
+  resumeBtn.addEventListener('mouseleave',()=>{
+    resumeBtn.style.background='transparent';
+    resumeBtn.style.boxShadow='none';
+    resumeBtn.style.transform='translateY(0)';
+  });
+}
+
+/* ══════════════════════════════════
+   CLICK ANYWHERE → TINY SPARKLE
+══════════════════════════════════ */
+document.addEventListener('click',e=>{
+  if(e.target.closest('.rxn-btn,.stat-box,.ach-row,#nav-logo,#nav-coffee,#fun-btn,#secret-close,.konami-close,.joke-ticker,.footer-egg'))return;
+  const sp=document.createElement('div');
+  sp.className='cursor-emoji';
+  sp.textContent=['✨','⭐','💫','·','✦'][Math.floor(Math.random()*5)];
+  sp.style.left=e.clientX+'px';
+  sp.style.top=e.clientY+'px';
+  sp.style.fontSize='1.2rem';
+  sp.style.animationDuration='.6s';
+  document.body.appendChild(sp);
+  setTimeout(()=>sp.remove(),700);
+});
+
+/* ══════════════════════════════════
+   AUDIO PLAYER (using bot toggle)
+══════════════════════════════════ */
+const audio=document.getElementById('bgAudio');
+const audioNotif=document.getElementById('audioNotification');
+const aiToggleElem=document.getElementById('ai-toggle');
+let isPlaying=false;
+function toggleAudio(){
+  if(isPlaying){
+    audio.pause();
+    isPlaying=false;
+    aiToggleElem.textContent='▶';
+    aiToggleElem.classList.remove('playing');
+  } else {
+    audio.play().catch(()=>{});
+    isPlaying=true;
+    aiToggleElem.textContent='⏸';
+    aiToggleElem.classList.add('playing');
+  }
+}
+audioNotif.addEventListener('click',()=>{audioNotif.classList.add('hidden');aiToggleElem.classList.remove('hidden');toggleAudio();});
+aiToggleElem.addEventListener('click',toggleAudio);
+document.addEventListener('click',e=>{
+  if(!audioNotif.classList.contains('hidden')&&e.target!==audioNotif&&!audioNotif.contains(e.target)){
+    audioNotif.classList.add('hidden');aiToggleElem.classList.remove('hidden');
+    if(!isPlaying)toggleAudio();
+  }else{if(!isPlaying){aiToggleElem.classList.remove('hidden');toggleAudio();}}
+},{once:false});
+audio.addEventListener('ended',()=>{isPlaying=false;aiToggleElem.textContent='▶';aiToggleElem.classList.remove('playing');});
+
+
+
+/* ══════════════════════════════════
+   WELCOME TOAST
+══════════════════════════════════ */
+setTimeout(()=>showToast('👋 Hover everything. Click stuff. Try the ↑↑↓↓ combo 👀'),2500);
+</script>
+</body>
+</html>
